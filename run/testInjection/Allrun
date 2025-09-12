@@ -10,10 +10,15 @@ cp -r 0.orig 0
 
 runApplication blockMesh
 
-touch spray.foam
+# Get the current folder name
+caseName=${PWD##*/}
+
+# Create the .foam file with the folder name
+touch "${caseName}.foam"
 
 # =============== Run serial ===============
 #runApplication $application
+#runApplication foamToVTK
 
 
 # ============== Run parallel ==============
@@ -27,14 +32,12 @@ for dir in processor*/; do
     mkdir -p "${dir}constant/Samples"
     # Copy all files starting with 'Samples' into the 'constant' subdirectory
     cp -r constant/Samples/Sample "${dir}constant/Samples"
-    # Copy all files starting with 'Position' into the 'constant' subdirectory
-    cp -r constant/Positions/Position "${dir}constant/Positions"
   fi
 done
 
 runParallel $application
-
 runApplication reconstructPar
 runApplication foamToVTK
+rm -r processor*
 
 #------------------------------------------------------------------------------

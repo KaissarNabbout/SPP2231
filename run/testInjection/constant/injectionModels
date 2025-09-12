@@ -1,0 +1,19 @@
+model1
+{
+    type                GeneralCoupledSizeVelocityInjection;
+    samplesFile         Sample; // Name of the file with the sampling data
+    dSampling           true; // true = CDF ; false = Normal
+    vSampling           true; // true = CDF ; false = Normal
+    position            ((0.001 0.001 0.0199)); // Injection position
+    uniformParcelSize   nParticle;
+    massTotal           0.0; 
+    flowRateProfile     constant 1;
+    SOI                 0.0; // Start of Injection
+    duration            0.015; // injection duration
+    nParticle           1; // droplets (or particles) per parcel
+    parcelsPerSecond    200000;
+    autoAdjustPPS       true; // particlesPerSecond = particlesPerSecond/nParticle
+    randomInjection     false; // Randomly choose an injection position within a bounding
+                               // box "rndInjectionBox" with center on "position"
+    rndInjectionBox     (0.005 0.005 0.0);
+}

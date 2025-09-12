@@ -79,10 +79,11 @@ subModels
 		gravity;
     }
     
+    // If the list is empty, only maxCo and minCo are used
     particleRelevantTimes
     {
         SchillerNaumannStokesResponseTime;
-        kEpsilonRelevantTimeBPG;
+        kEpsilonRelevantTimeBPG; // only if turbulence is on
     }
 
     injectionModels
@@ -104,7 +105,7 @@ subModels
 
     atomisationModel none;
 
-    breakupModel    RTAB;
+    breakupModel    none;
 
     stochasticCollisionModel none;
 

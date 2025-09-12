@@ -1,0 +1,83 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  8                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      scalarListList;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+/* =============================== Description ===============================
+ column 1: scalar 
+    if CDF: limits of the classes for the droplets diameter [m]
+    if meanStd: mean value for droplets diameter [m]
+ column 2: scalar
+    if CDF: CDF for the corresponding class limit in column 1
+    if meanStd: standard deviation for droplets diameter [m]
+ column 3: (list of scalars) 
+    if CDF: limits of the classes for Vx associated to diameter in column 1 [m/s]
+    if meanStd: mean values for Vx associated to diameter in column 1 [m/s]
+ column 4: (list of scalars)
+    if CDF: CDF for the corresponding class limit in column 3
+    if meanStd: standard deviation for Vx associated to diameter in column 1 [m/s]
+ column 5: (list of scalars)
+    if CDF: limits of the classes for Vy associated to diameter in column 1 [m/s]
+    if meanStd: mean values for Vy associated to diameter in column 1 [m/s]
+ column 6: (list of scalars)
+    if CDF: CDF for the corresponding class limit in column 5
+    if meanStd: standard deviation for Vy associated to diameter in column 1 [m/s]
+ column 7: (list of scalars)
+    if CDF: limits of the classes for Vz associated to diameter in column 1 [m/s]
+    if meanStd: mean values for Vz associated to diameter in column 1 [m/s]
+ column 8: (list of scalars)
+    if CDF: CDF for the corresponding class limit in column 7
+    if meanStd: standard deviation for Vz associated to diameter in column 1 [m/s]
+
+Coordinates of the measurements in relation to the tip of the nozzle:
+(-8.75 -8.75 -20.00)
+=============================== End description ===============================*/
+
+// Size = Normal ; Velocity = Normal
+// Remember to use dSampling = false and vSmapling = false
+
+/*(*/
+/*200e-6    0.00001     (0.0) (10.0)   (0.0)   (10.0)   (-50.0)     (0.001)*/
+/*)*/
+
+// =============================================================================
+
+// Size = CDF ; Velocity = Normal
+// Remember to use dSampling = true and vSmapling = false
+
+/*(*/
+/*200e-6  0.0     (0.001) (0.001)   (0.001)   (0.001)   (0.001)     (0.001)*/
+/*201e-6  0.2     (0.001) (0.001)   (0.001)   (0.001)   (-50.0)     (0.001)*/
+/*202e-6	0.4     (20.0)  (0.001)   (0.001)   (0.001)   (-50.0)     (0.001)*/
+/*203e-6	0.6	    (0.001) (0.001)   (20.0)    (0.001)   (-50.0)     (0.001)*/
+/*204e-6	0.8	    (-20.0) (0.001)   (0.001)   (0.001)   (-50.0)     (0.001)*/
+/*205e-6	1.0	    (0.001) (0.001)   (-20.0)   (0.001)   (-50.0)     (0.001)*/
+/*)*/
+
+// =============================================================================
+
+// Size = CDF ; Velocity = CDF
+// Remember to use dSampling = true and vSmapling = true
+
+(
+200e-6  0.0     (0 0.001)       (0.0 1.0)   (0 0.001)       (0.0 1.0)   (0 0.001)       (0.0 1.0)
+201e-6  0.2     (0 0.001)       (0.0 1.0)   (0 0.001)       (0.0 1.0)   (-50.1 -50)     (0.0 1.0)
+202e-6  0.4     (19.9 20.1)     (0.0 1.0)   (0 0.001)       (0.0 1.0)   (-50.1 -50)     (0.0 1.0)
+203e-6	0.6	    (0 0.001)       (0.0 1.0)   (19.9 20.1)     (0.0 1.0)   (-50.1 -50)     (0.0 1.0)
+204e-6	0.8	    (-20.1 -19.9)   (0.0 1.0)   (0 0.001)       (0.0 1.0)   (-50.1 -50)     (0.0 1.0)
+205e-6	1.0	    (0 0.001)       (0.0 1.0)   (-20.1 -19.9)   (0.0 1.0)   (-50.1 -50)     (0.0 1.0)
+)
+
+
