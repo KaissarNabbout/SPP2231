@@ -1,0 +1,152 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  12
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      cloudProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+type        sprayCloud;
+
+cpuLoad     false;
+
+solution
+{
+    coupled         true;
+    transient       true;
+    cellValueSourceCorrection false;
+    maxCo           1;
+    minCo           0.1;
+
+    sourceTerms
+    {
+        schemes
+        {
+            rho             explicit 1;
+            U               explicit 1;
+            Yi              explicit 1;
+            h               explicit 1;
+            radiation       explicit 1;
+        }
+    }
+
+    interpolationSchemes
+    {
+        rho             cell;
+        U               cellPoint;
+        mu              cell;
+        T               cell;
+        Cp              cell;
+        kappa           cell;
+        p               cell;
+        k               cellPoint;
+        epsilon         cellPoint;
+    }
+
+    integrationSchemes
+    {
+        U               Euler;
+        T               analytical;
+    }
+}
+
+
+constantProperties
+{
+    T0              293;
+
+    // place holders for rho0 and Cp0
+    // - reset from liquid properties using T0
+    rho0            1000;
+    Cp0             4187;
+
+    constantVolume  false;
+}
+
+subModels
+{
+    particleForces
+    {
+        SchillerNaumannStokesDrag;
+		gravity;
+    }
+    
+    particleRelevantTimes
+    {
+        SchillerNaumannStokesResponseTime;
+        kEpsilonRelevantTimeBPG;
+    }
+
+    injectionModels
+    {
+        #include "injectionModels"
+    }
+
+    dispersionModel StochasticLangevinDispersionRAS;
+
+    patchInteractionModel none;
+
+    heatTransferModel none;
+
+    compositionModel singlePhaseMixture;
+
+    phaseChangeModel none;
+
+    surfaceFilmModel none;
+
+    atomisationModel none;
+
+    breakupModel    RTAB;
+
+    stochasticCollisionModel none;
+
+    radiation       off;
+
+    singlePhaseMixtureCoeffs
+    {
+        phases
+        (
+            liquid
+            {
+                H2O               1;
+            }
+        );
+    }
+}
+
+
+cloudFunctions
+{
+    particleCollector1
+    {
+        type            IVT12_ParticleCollector;
+
+        mode            polygon;
+        polygons
+        (
+            (
+                (-0.012 -0.012 0)
+                ( 0.012 -0.012 0)
+                ( 0.012  0.012 0)
+                (-0.012  0.012 0)
+            )
+        );
+        normal          (0 0 1);
+
+        removeCollected false;
+        surfaceFormat   vtk;
+        resetOnWrite    false;
+        log             true;
+    }
+}
+
+
+// ************************************************************************* //

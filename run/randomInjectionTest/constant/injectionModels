@@ -1,0 +1,39 @@
+model1
+{
+    type                GeneralCoupledSizeVelocityInjection;
+    samplesFile         Sample;
+    dSampling           true;
+    vSampling           true;
+//    positionsFile       Position;
+    position            ((0.001 0.001 0.02));
+    uniformParcelSize   nParticle;
+    massTotal           0.0; 
+    flowRateProfile     constant 1;
+    SOI                 0.0; 
+    duration            0.015; 
+    nParticle           1;
+    parcelsPerSecond    200000;
+    autoAdjustPPS       true;
+    randomInjection     false;
+    rndInjectionBox     (0.005 0.005 0.0);
+}
+
+//model2
+//{
+//    type                GeneralCoupledSizeVelocityInjection;
+//    samplesFile         Sample;
+//    dSampling           true;
+//    vSampling           true;
+////    positionsFile       Position;
+//    position            ((-0.001 -0.001 0.02));
+//    uniformParcelSize   nParticle;
+//    massTotal           0.0; 
+//    flowRateProfile     constant 1;
+//    SOI                 0.0; 
+//    duration            0.015; 
+//    nParticle           1;
+//    parcelsPerSecond    200000;
+//    autoAdjustPPS       false;
+//    randomInjection     true;
+//    rndInjectionBox     (0.005 0.005 0.0);
+//}

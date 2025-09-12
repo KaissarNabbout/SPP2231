@@ -1,0 +1,40 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # Run from this directory
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+application="$(getApplication)"
+
+cp -r 0.orig 0
+
+runApplication blockMesh
+
+touch spray.foam
+
+# =============== Run serial ===============
+#runApplication $application
+
+
+# ============== Run parallel ==============
+
+runApplication decomposePar
+
+for dir in processor*/; do
+  if [ -d "$dir" ]; then # Check if it's indeed a directory
+    # Ensure the 'constant' subdirectory exists
+    mkdir -p "${dir}constant/Positions"
+    mkdir -p "${dir}constant/Samples"
+    # Copy all files starting with 'Samples' into the 'constant' subdirectory
+    cp -r constant/Samples/Sample "${dir}constant/Samples"
+    # Copy all files starting with 'Position' into the 'constant' subdirectory
+    cp -r constant/Positions/Position "${dir}constant/Positions"
+  fi
+done
+
+runParallel $application
+
+runApplication reconstructPar
+runApplication foamToVTK
+
+#------------------------------------------------------------------------------
